@@ -1823,6 +1823,35 @@ a {
         transition: left var(--transition-normal);
         box-shadow: var(--shadow-lg);
     }
+
+  .hero-image {
+        width: 250px; /* Smaller size for mobile */
+        height: 250px; /* Smaller size for mobile */
+    }
+
+    .hero-title {
+        font-size: 2.5rem; /* Smaller font size for mobile */
+    }
+
+    .hero-greeting {
+        font-size: 2rem; /* Smaller font size for mobile */
+    }
+
+    .hero-name-gradient {
+        font-size: 2.5rem; /* Smaller font size for mobile */
+    }
+
+    .hero-tagline {
+        font-size: 1.25rem; /* Smaller font size for mobile */
+    }
+
+    .hero-description {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+
+    .hero-container {
+        gap: var(--space-8); /* Reduce gap between image and content */
+    }
     
     .nav-menu.active {
         left: 0;
