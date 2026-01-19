@@ -388,8 +388,7 @@ contactForm.addEventListener('submit', (e) => {
     
     // Validate form
     if (validateForm(data)) {
-        // Simulate form submission
-        simulateFormSubmission();
+        submitContactForm(data);
     }
 });
 
@@ -441,24 +440,45 @@ function showFormError(errorId, message) {
     errorElement.classList.add('show');
 }
 
-function simulateFormSubmission() {
+async function submitContactForm(data) {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
-    
-    setTimeout(() => {
+
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to send message');
+        }
+
         submitBtn.textContent = 'Message Sent!';
         submitBtn.style.background = 'var(--success-500)';
-        
+
         setTimeout(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
             submitBtn.style.background = '';
             contactForm.reset();
         }, 2000);
-    }, 1500);
+    } catch (error) {
+        submitBtn.textContent = 'Send Failed';
+        submitBtn.style.background = 'var(--error-500)';
+
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            submitBtn.style.background = '';
+        }, 2000);
+    }
 }
 
 // Smooth scrolling for anchor links
